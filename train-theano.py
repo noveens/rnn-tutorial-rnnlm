@@ -23,6 +23,7 @@ def train_with_sgd(model, X_train, y_train, learning_rate=0.005, nepoch=1, evalu
     losses = []
     num_examples_seen = 0
     for epoch in range(nepoch):
+        print epoch
         # Optionally evaluate the loss
         if (epoch % evaluate_loss_after == 0):
             loss = model.calculate_loss(X_train, y_train)
@@ -31,7 +32,7 @@ def train_with_sgd(model, X_train, y_train, learning_rate=0.005, nepoch=1, evalu
             print "%s: Loss after num_examples_seen=%d epoch=%d: %f" % (time, num_examples_seen, epoch, loss)
             # Adjust the learning rate if loss increases
             if (len(losses) > 1 and losses[-1][1] > losses[-2][1]):
-                learning_rate = learning_rate * 0.5  
+                learning_rate = learning_rate * 0.5
                 print "Setting learning rate to %f" % learning_rate
             sys.stdout.flush()
             # ADDED! Saving model oarameters
@@ -57,7 +58,7 @@ with open('data/reddit-comments-2015-08.csv', 'rb') as f:
     # Append SENTENCE_START and SENTENCE_END
     sentences = ["%s %s %s" % (sentence_start_token, x, sentence_end_token) for x in sentences]
 print "Parsed %d sentences." % (len(sentences))
-    
+
 # Tokenize the sentences into words
 tokenized_sentences = [nltk.word_tokenize(sent) for sent in sentences]
 
